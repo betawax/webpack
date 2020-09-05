@@ -1,0 +1,5 @@
+//
+// Webpack
+//
+
+module.exports = {}

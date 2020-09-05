@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "NODE_ENV=development webpack --progress --hide-modules",
+        "development": "NODE_ENV=development webpack --progress --hide-modules",
+        "prod": "NODE_ENV=production webpack --progress --hide-modules",
+        "production": "NODE_ENV=production webpack --progress --hide-modules",
+        "watch": "NODE_ENV=development webpack --watch --progress --hide-modules",
+        "serve": "NODE_ENV=development webpack-dev-server --open"
+    },
+    "devDependencies": {
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12",
+        "webpack-dev-server": "^3.11.0"
+    }
+}
