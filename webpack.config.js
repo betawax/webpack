@@ -72,6 +72,8 @@ if (process.env.NODE_ENV === 'development') {
       hints: false
     },
 
+    devtool: 'source-map',
+
     devServer: {
       contentBase: './public'
     },
