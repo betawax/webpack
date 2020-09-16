@@ -1,5 +1,6 @@
 const dotenv = require('dotenv').config()
 const Dotenv = require('dotenv-webpack')
+const ManifestPlugin = require('webpack-manifest-plugin')
 const path = require('path')
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -71,7 +72,19 @@ if (process.env.NODE_ENV === 'production') {
     output: {
       filename: 'scripts/[name]-[contenthash:7].min.js',
       chunkFilename: 'scripts/[name]-[chunkhash:7].min.js'
-    }
+    },
+
+    plugins: [
+      new ManifestPlugin({
+        filter: (file) => file.path.match(/\.js$|\.css$/),
+        map: (file) => {
+          const extension = path.extname(file.name).slice(1)
+          file.name = extension === 'js' ? 'dist/scripts/'+file.name.replace('.js', '.min.js') : file.name
+          file.name = extension === 'css' ? 'dist/styles/'+file.name.replace('.css', '.min.css') : file.name
+          return file
+        }
+      })
+    ]
 
   })
 }
