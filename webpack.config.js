@@ -72,6 +72,10 @@ if (process.env.NODE_ENV === 'development') {
       hints: false
     },
 
+    devServer: {
+      contentBase: './public'
+    },
+
     output: {
       filename: 'scripts/[name].min.js',
       chunkFilename: 'scripts/[name].min.js'
