@@ -1,5 +1,6 @@
 const dotenv = require('dotenv').config()
 const Dotenv = require('dotenv-webpack')
+const fs = require('fs-extra')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const path = require('path')
 const webpack = require('webpack')
@@ -75,6 +76,7 @@ if (process.env.NODE_ENV === 'production') {
     },
 
     plugins: [
+
       new ManifestPlugin({
         filter: (file) => file.path.match(/\.js$|\.css$/),
         map: (file) => {
@@ -83,7 +85,21 @@ if (process.env.NODE_ENV === 'production') {
           file.name = extension === 'css' ? 'dist/styles/'+file.name.replace('.css', '.min.css') : file.name
           return file
         }
-      })
+      }),
+
+      {
+        apply: (compiler) => {
+          compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
+            const manifest = require('./'+process.env.WEBPACK_MANIFEST)
+            process.chdir('./public')
+            for (let symlink in manifest) {
+              let origin = manifest[symlink]
+              fs.ensureSymlinkSync(origin, symlink)
+            }
+          })
+        }
+      }
+
     ]
 
   })
