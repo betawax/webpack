@@ -40,7 +40,17 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new CleanWebpackPlugin()
-  ]
+  ],
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      }
+    ]
+  }
 
 }
 
