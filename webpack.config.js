@@ -28,6 +28,8 @@ module.exports = {
 if (process.env.NODE_ENV === 'development') {
   module.exports = merge(module.exports, {
 
+    mode: 'development',
+
     output: {
       filename: 'scripts/[name].min.js',
       chunkFilename: 'scripts/[name].min.js'
@@ -42,6 +44,8 @@ if (process.env.NODE_ENV === 'development') {
 
 if (process.env.NODE_ENV === 'production') {
   module.exports = merge(module.exports, {
+
+    mode: 'production',
 
     output: {
       filename: 'scripts/[name]-[contenthash:7].min.js',
