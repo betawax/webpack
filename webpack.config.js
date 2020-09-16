@@ -20,6 +20,19 @@ module.exports = {
     publicPath: 'dist/'
   },
 
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          name: 'common',
+          chunks: 'all',
+          enforce: true,
+          test: /[\\/]node_modules[\\/]|[\\/]vendor[\\/]/
+        }
+      }
+    }
+  },
+
   plugins: [
     new CleanWebpackPlugin()
   ]
