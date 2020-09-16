@@ -50,6 +50,11 @@ module.exports = {
         exclude: /node_modules/
       }
     ]
+  },
+
+  stats: {
+    children: false,
+    entrypoints: false
   }
 
 }
@@ -62,6 +67,10 @@ if (process.env.NODE_ENV === 'development') {
   module.exports = merge(module.exports, {
 
     mode: 'development',
+
+    performance: {
+      hints: false
+    },
 
     output: {
       filename: 'scripts/[name].min.js',
