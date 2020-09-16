@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { merge } = require('webpack-merge')
 
 //
@@ -17,7 +18,11 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public/dist'),
     publicPath: 'dist/'
-  }
+  },
+
+  plugins: [
+    new CleanWebpackPlugin()
+  ]
 
 }
 
