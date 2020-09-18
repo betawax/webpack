@@ -13,16 +13,33 @@ const { merge } = require('webpack-merge')
 
 module.exports = {
 
+  //
+  // Entry Points
+  //
+
   entry: {
     'application': [
       './resources/scripts/application.js'
     ]
   },
 
+  //
+  // Output
+  //
+
   output: {
+
+    // The absolute path of the output directory
     path: path.resolve(__dirname, 'public/dist'),
+
+    // The public URL of the output directory
     publicPath: 'dist/'
+
   },
+
+  //
+  // Optimization
+  //
 
   optimization: {
     splitChunks: {
@@ -37,20 +54,43 @@ module.exports = {
     }
   },
 
+  //
+  // Plugins
+  //
+
   plugins: [
+
+    // Support environment variables
     new Dotenv(),
+
+    // Clean the output directory
     new CleanWebpackPlugin()
+
   ],
+
+  //
+  // Modules
+  //
 
   module: {
     rules: [
+
+      //
+      // Babel
+      //
+
       {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/
       }
+
     ]
   },
+
+  //
+  // Stats
+  //
 
   stats: {
     children: false,
@@ -66,21 +106,38 @@ module.exports = {
 if (process.env.NODE_ENV === 'development') {
   module.exports = merge(module.exports, {
 
+    // The optimization mode
     mode: 'development',
 
-    performance: {
-      hints: false
-    },
-
+    // Generate source maps
     devtool: 'source-map',
 
-    devServer: {
-      contentBase: './public'
-    },
+    //
+    // Output
+    //
 
     output: {
       filename: 'scripts/[name].min.js',
       chunkFilename: 'scripts/[name].min.js'
+    },
+
+    //
+    // DevServer
+    //
+
+    devServer: {
+
+      // The absolute path where to serve content from
+      contentBase: path.join(__dirname, 'public')
+
+    },
+
+    //
+    // Performance
+    //
+
+    performance: {
+      hints: false
     }
 
   })
@@ -93,27 +150,44 @@ if (process.env.NODE_ENV === 'development') {
 if (process.env.NODE_ENV === 'production') {
   module.exports = merge(module.exports, {
 
+    // The optimization mode
     mode: 'production',
+
+    //
+    // Output
+    //
 
     output: {
       filename: 'scripts/[name]-[contenthash:7].min.js',
       chunkFilename: 'scripts/[name]-[chunkhash:7].min.js'
     },
 
+    //
+    // Plugins
+    //
+
     plugins: [
 
+      // Generate a asset manifest
       new ManifestPlugin({
+
+        // Only add certain file types to the manifest
         filter: (file) => file.path.match(/\.js$|\.css$/),
+
+        // Modify file paths before the manifest is created
         map: (file) => {
           const extension = path.extname(file.name).slice(1)
           file.name = extension === 'js' ? 'dist/scripts/'+file.name.replace('.js', '.min.js') : file.name
           file.name = extension === 'css' ? 'dist/styles/'+file.name.replace('.css', '.min.css') : file.name
           return file
         }
+
       }),
 
       {
         apply: (compiler) => {
+
+          // Create symlinks for hashed production assets
           compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
             const manifest = require('./'+process.env.WEBPACK_MANIFEST)
             process.chdir('./public')
@@ -122,6 +196,7 @@ if (process.env.NODE_ENV === 'production') {
               fs.ensureSymlinkSync(origin, symlink)
             }
           })
+
         }
       }
 
