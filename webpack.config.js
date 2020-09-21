@@ -175,12 +175,7 @@ if (process.env.NODE_ENV === 'production') {
         filter: (file) => file.path.match(/\.js$|\.css$/),
 
         // Modify file paths before the manifest is created
-        map: (file) => {
-          const extension = path.extname(file.name).slice(1)
-          file.name = extension === 'js' ? 'dist/scripts/'+file.name.replace('.js', '.min.js') : file.name
-          file.name = extension === 'css' ? 'dist/styles/'+file.name.replace('.css', '.min.css') : file.name
-          return file
-        }
+        map: (file) => modifyManifestFilePath(file)
 
       }),
 
@@ -204,3 +199,24 @@ if (process.env.NODE_ENV === 'production') {
 
   })
 }
+
+//
+// Helpers
+//
+
+const modifyManifestFilePath = (file) => {
+
+  // Get the raw file extension without the dot
+  const extension = path.extname(file.name).slice(1)
+
+  // Modify certain file types
+  file.name = ((extension) => ({
+    'js': 'dist/scripts/'+file.name.replace('.js', '.min.js'),
+    'css': 'dist/styles/'+file.name.replace('.css', '.min.css')
+  }))()[extension] || file.name
+
+  return file
+
+}
+
+const symlinkHashedAssets = () => {}
