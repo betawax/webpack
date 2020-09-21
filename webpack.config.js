@@ -182,15 +182,8 @@ if (process.env.NODE_ENV === 'production') {
       {
         apply: (compiler) => {
 
-          // Create symlinks for hashed production assets
-          compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
-            const manifest = require('./'+process.env.WEBPACK_MANIFEST)
-            process.chdir('./public')
-            for (let symlink in manifest) {
-              let origin = manifest[symlink]
-              fs.ensureSymlinkSync(origin, symlink)
-            }
-          })
+          // Create symbolic links for hashed assets
+          compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => symlinkHashedAssets())
 
         }
       }
@@ -219,4 +212,18 @@ const modifyManifestFilePath = (file) => {
 
 }
 
-const symlinkHashedAssets = () => {}
+const symlinkHashedAssets = () => {
+
+  // Get the asset manifest
+  const manifest = require('./'+process.env.WEBPACK_MANIFEST)
+
+  // Change into the public directory
+  process.chdir('./public')
+
+  // Create symbolic links
+  for (let symlink in manifest) {
+    let origin = manifest[symlink]
+    fs.ensureSymlinkSync(origin, symlink)
+  }
+
+}
