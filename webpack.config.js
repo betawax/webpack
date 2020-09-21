@@ -48,7 +48,7 @@ module.exports = {
           name: 'common',
           chunks: 'all',
           enforce: true,
-          test: /[\\/]node_modules[\\/]|[\\/]vendor[\\/]/
+          test: /[\\/]node_modules[\\/]/
         }
       }
     }
