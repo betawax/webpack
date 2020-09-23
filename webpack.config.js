@@ -4,6 +4,7 @@ const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
 const fs = require('fs-extra')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -217,6 +218,9 @@ if (process.env.NODE_ENV === 'production') {
         filename: 'styles/[name]-[contenthash:7].min.css',
         chunkFilename: 'styles/[name]-[chunkhash:7].min.css'
       }),
+
+      // Optimize & minimize styles
+      new OptimizeCssAssetsPlugin(),
 
       // Generate a asset manifest
       new ManifestPlugin({
