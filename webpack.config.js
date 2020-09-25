@@ -10,6 +10,9 @@ const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { merge } = require('webpack-merge')
 
+const output_dir = process.env.WEBPACK_OUTPUT_DIR
+const public_dir = process.env.WEBPACK_PUBLIC_DIR
+
 //
 // Webpack
 //
@@ -37,10 +40,10 @@ module.exports = {
   output: {
 
     // The absolute path of the output directory
-    path: path.resolve(__dirname, 'public/dist'),
+    path: path.resolve(__dirname, path.join(public_dir, output_dir)),
 
     // The public URL of the output directory
-    publicPath: 'dist/'
+    publicPath: path.join(output_dir, '/')
 
   },
 
@@ -150,7 +153,7 @@ if (process.env.NODE_ENV === 'development') {
     devServer: {
 
       // The absolute path where to serve content from
-      contentBase: path.join(__dirname, 'public')
+      contentBase: path.join(__dirname, public_dir)
 
     },
 
@@ -258,8 +261,8 @@ const modifyManifestFilePath = (file) => {
 
   // Modify certain file types
   file.name = ((extension) => ({
-    'js': 'dist/scripts/'+file.name.replace('.js', '.min.js'),
-    'css': 'dist/styles/'+file.name.replace('.css', '.min.css')
+    'js': path.join(output_dir, 'scripts', file.name.replace('.js', '.min.js')),
+    'css': path.join(output_dir, 'styles', file.name.replace('.css', '.min.css'))
   }))()[extension] || file.name
 
   return file
@@ -272,7 +275,7 @@ const symlinkHashedAssets = () => {
   const manifest = require('./'+process.env.WEBPACK_MANIFEST)
 
   // Change into the public directory
-  process.chdir('./public')
+  process.chdir(public_dir)
 
   // Create symbolic links
   for (let symlink in manifest) {
