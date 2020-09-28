@@ -108,7 +108,12 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../'
+            }
+          },
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -120,6 +125,19 @@ module.exports = {
           },
           'sass-loader'
         ]
+      },
+
+      //
+      // Images
+      //
+
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          context: 'resources',
+          name: '[path][name].[ext]'
+        }
       }
 
     ]
