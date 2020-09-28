@@ -141,6 +141,15 @@ module.exports = {
       },
 
       //
+      // SVGs
+      //
+
+      {
+        test: /\.svg$/,
+        loader: 'svg-url-loader'
+      },
+
+      //
       // Fonts
       //
 
