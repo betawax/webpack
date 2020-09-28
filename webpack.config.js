@@ -132,7 +132,20 @@ module.exports = {
       //
 
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpe?g|gif)$/,
+        loader: 'file-loader',
+        options: {
+          context: 'resources',
+          name: '[path][name].[ext]'
+        }
+      },
+
+      //
+      // Fonts
+      //
+
+      {
+        test: /\.(woff|woff2|ttf|eot)$/,
         loader: 'file-loader',
         options: {
           context: 'resources',
