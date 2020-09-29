@@ -321,9 +321,9 @@ const symlinkHashedAssets = () => {
   process.chdir(public_dir)
 
   // Create symbolic links
-  for (let symlink in manifest) {
+  Object.keys(manifest).forEach((symlink) => {
     let origin = manifest[symlink]
     fs.ensureSymlinkSync(origin, symlink)
-  }
+  })
 
 }
