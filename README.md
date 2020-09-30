@@ -17,7 +17,7 @@ Webpack ✔︎ Node ✔︎ Sass ✔︎ Babel ✔︎ Autoprefixer ✔︎ Browsers
 
 ### System Requirements
 
-You will need to have Git and NPM installed on your local system. Node v14 and up is supported.
+You will need to have Git and NPM installed on your local system. Node 14 and up is supported.
 
 ## Getting Started
 
@@ -91,7 +91,7 @@ Take a look at the following table to see all available `npm` commands and what 
 | Code Splitting  | ✔︎ | ✔︎ | ✔︎ | ✔︎ |
 | Compile Scripts | ✔︎ | ✔︎ | ✔︎ | ✔︎ |
 | Compile Sass    | ✔︎ | ✔︎ | ✔︎ | ✔︎ |
-| Autoprefix      | ✔︎ | ✔︎ | ✔︎ | ✔︎ |
+| Auto Prefix     | ✔︎ | ✔︎ | ✔︎ | ✔︎ |
 | Source Maps     | ✔︎ | ✔︎ | ✔︎ | 𝗫 |
 | Optimize Output | 𝗫 | 𝗫 | 𝗫 | ✔︎ |
 | Hash Filenames  | 𝗫 | 𝗫 | 𝗫 | ✔︎ |
@@ -101,10 +101,10 @@ Take a look at the following table to see all available `npm` commands and what 
 
 The following resource types are supported and will be handled appropriately:
 
-- Scripts will be compiled into browser compatible code
-- Styles will be compiled into CSS and vendor prefixes will be applied
-- Images & Fonts will be emitted and their paths will be resolved
-- SVGs will be placed inline as UTF-8 encoded strings
+- **Scripts** will be compiled into browser compatible code
+- **Styles** will be compiled into CSS and vendor prefixes will be applied
+- **Images & Fonts** will be emitted and their paths will be resolved
+- **SVGs** will be placed inline as UTF-8 encoded strings
 
 ## Coding Guidelines
 
