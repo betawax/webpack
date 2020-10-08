@@ -74,7 +74,12 @@ module.exports = {
     new Dotenv(),
 
     // Clean the output directory
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+
+      // Do not remove stale assets on watch
+      cleanStaleWebpackAssets: false
+
+    }),
 
     // Remove style only entry scripts
     new FixStyleOnlyEntriesPlugin({ silent: true })
