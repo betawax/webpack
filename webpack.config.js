@@ -1,3 +1,4 @@
+const CopyPlugin = require('copy-webpack-plugin')
 const dotenv = require('dotenv').config()
 const Dotenv = require('dotenv-webpack')
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
@@ -72,6 +73,17 @@ module.exports = {
 
     // Support environment variables
     new Dotenv(),
+
+    // Distribute static assets
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'static',
+          to: 'static',
+          context: 'resources'
+        }
+      ]
+    }),
 
     // Clean the output directory
     new CleanWebpackPlugin({

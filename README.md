@@ -105,6 +105,7 @@ The following resource types are supported and will be handled appropriately:
 - **Styles** will be compiled into CSS and vendor prefixes will be applied
 - **Images & Fonts** will be emitted and their paths will be resolved
 - **SVGs** will be placed inline as UTF-8 encoded strings
+- **Static** assets will be distributed recursively
 
 ## Coding Guidelines
 
