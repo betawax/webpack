@@ -11,6 +11,7 @@ const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { merge } = require('webpack-merge')
 
+const manifest_file = process.env.WEBPACK_MANIFEST
 const output_dir = process.env.WEBPACK_OUTPUT_DIR
 const public_dir = process.env.WEBPACK_PUBLIC_DIR
 
@@ -331,8 +332,8 @@ const modifyManifestFilePath = (file) => {
 
 const symlinkHashedAssets = () => {
 
-  // Get the asset manifest
-  const manifest = require('./'+process.env.WEBPACK_MANIFEST)
+  // Import the asset manifest
+  const manifest = require('./'+manifest_file)
 
   // Change into the public directory
   process.chdir(public_dir)
