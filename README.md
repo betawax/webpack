@@ -107,6 +107,6 @@ The following resource types are supported and will be handled appropriately:
 - **SVGs** will be placed inline as UTF-8 encoded strings
 - **Static** assets will be distributed recursively
 
-## Coding Guidelines
+## License
 
-See `.editorconfig`.
+Licensed under the MIT license.
